@@ -1,0 +1,6 @@
+<%= link_to "Write a new comment", new_comment_path(@comment) %>
+<h1>All Comments</h1>
+<% @comments.each do |comment| %>
+  <%= link_to comment.body.truncate(30), comment_path(comment) %>
+  <hr>
+<% end %>

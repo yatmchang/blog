@@ -1,0 +1,26 @@
+<h1><%= @post.title.titleize %></h1>
+<p>Category: <%= @post.category.name %></p>
+<p><%= @post.body %></p>
+<%= link_to "Edit", edit_post_path(@post) %>
+<%= link_to "Delete", post_path(@post),
+                      method: :delete,
+                      data:   {confirm: "Are you sure?"} %>
+
+<h2>Create a Comment</h2>
+  <%= @comment.errors.full_messages.join(', ')%>
+  <%= form_for [@post, @comment] do |f| %>
+  <div>
+  Comment
+  <%= f.text_area :body %>
+  </div>
+  <%= f.submit %>
+  <% end %>
+
+<h2>Comments</h2>
+  <% @post.new_first_comments.each do |com| %>
+  <%= com.body %>
+  <%= link_to "Delete", post_comment_path(@post, com),
+                        method: :delete,
+                        data: {confirm: "Are you sure?"} %>
+<hr>
+<% end %>

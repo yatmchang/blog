@@ -1,0 +1,13 @@
+<%= form_tag(posts_path, :method => "get", id: "search-form") do %>
+      <%= text_field_tag :search, params[:search], placeholder: "Search" %>
+      <%= submit_tag "Search", :name => nil %>
+  <% end %>
+
+<%= link_to "Write a new post", new_post_path(@post) %>
+
+<h1>All Posts</h1>
+<% @posts.each do |post| %>
+  <%= link_to post.title, post_path(post) %>
+  <hr>
+<% end %>
+<%= will_paginate @posts %>

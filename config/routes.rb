@@ -1,5 +1,14 @@
 Rails.application.routes.draw do
   get  "/about" => "about#index"
-  # post "/cowsay" => "cowsay#create", as: :cowsay_submit
+  resources :posts do
+    get :search, on: :collection
+
+    post :flag, on: :member
+
+    post :mark_done
+
+    resources :comments, only: [:create, :destroy]
+  end
+
   root "home#index"
 end
