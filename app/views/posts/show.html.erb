@@ -1,6 +1,7 @@
 <h1><%= @post.title.titleize %></h1>
 <p>category: <%= @post.category.name %></p>
 <p><%= @post.body %></p>
+<p>Created By: <%= @post.user.full_name if @post.user %></p>
 <%= link_to "Edit", edit_post_path(@post) %>
 <%= link_to "Delete", post_path(@post),
                       method: :delete,
@@ -18,6 +19,8 @@
 
 <h2>Comments</h2>
   <% @post.new_first_comments.each do |com| %>
+  <%= com.user.full_name if com.user %>
+  |
   <%= com.body %>
   <%= link_to "Delete", post_comment_path(@post, com),
                         method: :delete,

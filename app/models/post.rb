@@ -1,6 +1,7 @@
 class Post < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   belongs_to :category
+  belongs_to :user
 
   validates :title, presence: true, uniqueness: true, length: {minimum: 7}
   validates :body, presence: true
