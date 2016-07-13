@@ -7,6 +7,15 @@
                       method: :delete,
                       data:   {confirm: "Are you sure?"} %>
 
+  <% if @post.favourited_by?(current_user) %>
+  <%= link_to "unfavourite",
+              post_favourite_path(@post, @post.favourited_for(current_user)),
+              method: :delete %>
+  <% else %>
+  <%= link_to "favourite", post_favourites_path(@post), method: :post %>
+  <% end %>
+
+
 <h2>Create a Comment</h2>
   <%= @comment.errors.full_messages.join(', ')%>
   <%= form_for [@post, @comment] do |f| %>

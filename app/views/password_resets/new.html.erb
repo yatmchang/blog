@@ -1,0 +1,9 @@
+<h2> What is your email? </h2>
+
+<%= form_tag password_resets_path do %>
+<div>
+    <%= label_tag :email %>
+    <%= email_field_tag :email %>
+</div>
+<%= submit_tag "Reset Password" %>
+<% end %>

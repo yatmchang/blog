@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :find_post, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:show, :index]
+  before_action :authenticate_user!, except: [:create, :show, :index]
 
   def new
     @post = Post.new
@@ -48,14 +48,5 @@ end
 def find_post
   @post = Post.find params[:id]
 end
-  def authenticate_user!
-    redirect_to new_session_path, alert: "please sign in" unless session[:user_id].present?
-  end
-  #
-  # def authorize_owner
-  #   unless can? :manage, @post
-  #     redirect_to root_path, alert: "access denied"
-  #   end
-  # end
 
 end

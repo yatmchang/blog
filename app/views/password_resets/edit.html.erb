@@ -1,0 +1,13 @@
+<h2> Please enter your new password </h2>
+
+<%= form_for @user, :url => password_reset_path(params[:id]) do |f| %>
+<div>
+  <%= f.label :new_password %>
+  <%= f.password_field :new_password %>
+</div>
+<div>
+  <%= f.label :password_confirmation %>
+  <%= f.password_field :password_confirmation %>
+</div>
+<%= f.submit "Update new password" %>
+<%end%>

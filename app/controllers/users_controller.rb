@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!, except: [:show, :index]
+  before_action :authenticate_user!, except: [:new, :create, :show, :index]
   before_action :find_user, only: [:show, :edit, :update, :destroy]
 
   def new
@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new user_params
     if @user.save
-      sign_in(@user)
+      session[:user_id] = @user.id
       redirect_to root_path, notice: "You're now signed up!"
     else
       render :new
@@ -30,7 +30,26 @@ class UsersController < ApplicationController
       end
   end
 
+  def password_edit
+    @user = current_user
+  end
 
+  def password_update
+    @user = current_user
+      user_params= params.require(:user).permit(:new_password, :password, :password_confirmation)
+    if @user.authenticate(user_params[:password]) && @user.authenticate(user_params[:new_password]) == false
+       @user.update(password: user_params[:new_password], password_confirmation: user_params[:password_confirmation])
+       redirect_to root_path, notice: "Password updated"
+    else
+      if @user.authenticate(user_params[:password]) == false
+        flash[:alert] = "Incorrect Password"
+      elsif @user.authenticate(user_params[:new_password])
+        flash[:alert] = "The new password should be different from the old password"
+      else
+      render :password_edit
+      end
+    end
+  end
 
 private
 
@@ -40,10 +59,6 @@ private
 
   def find_user
       @user = User.find params[:id]
-  end
-
-  def authenticate_user!
-    redirect_to new_session_path, alert: "please sign in" unless session[:user_id].present?
   end
 
 end

@@ -18,5 +18,8 @@ class ApplicationController < ActionController::Base
   def sign_in(user)
     session[:user_id] = user.id
   end
-  #if we need methods to be available in the view files we will need to add 'helper_method' and the first argument is the method name as a symbol
+
+  def authenticate_user!
+    redirect_to new_session_path, alert: "please sign in" unless session[:user_id].present?
+  end
 end
