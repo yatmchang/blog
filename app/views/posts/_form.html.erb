@@ -1,15 +1,8 @@
-<%= @post.errors.full_messages.join(", ") %>
-<%= form_for @post do |f| %>
-  <div>
-    <%= f.label :title %>
-    <%= f.text_field :title %>
+<%= simple_form_for @post do |f| %>
+  <%= f.input :title %>
+  <%= f.input :body %>
+  <%= f.association :category, include_blank: false %>
+  <%= f.association :tags, as: :check_boxes %>
+  <div class="actions"><%= submit_tag "Submit", class: "btn btn-danger btn-custom"%>
   </div>
-  <div>
-    <%= f.label :body %>
-    <%= f.text_area :body %>
-  </div>
-  <div>
-  <%= f.collection_select :category_id, Category.order(:name), :id, :name %>
-  </div>
-  <%= f.submit %>
 <% end %>

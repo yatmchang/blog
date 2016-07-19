@@ -9,6 +9,7 @@
     <%= f.input :password, :label => "Password", required: true %>
     <%= f.input :password_confirmation, :label => "Password Confirmation", required: true %>
     <hr>
-    <%= f.button :submit, class: "btn btn-default" %>
+    <div class="actions"><%= submit_tag "Submit", class: "btn btn-danger btn-custom"%>
+    </div>
   <% end %>
 </div>
