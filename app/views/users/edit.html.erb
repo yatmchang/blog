@@ -3,5 +3,6 @@
   <%= f.input :last_name, :label => "Last Name" %>
   <%= f.input :email, :label => "Email" %>
   <hr>
-<%= f.button :submit, class: "btn btn-default" %>
+  <div class="actions"><%= submit_tag "Submit", class: "btn btn-danger btn-custom"%>
+  </div>
 <% end %>
